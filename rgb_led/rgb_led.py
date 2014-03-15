@@ -52,7 +52,7 @@ def main():
 	led_setup()
 	led_clear()
 	led_activate(LED_1)
-	time.sleep(3000)
+	time.sleep(3)
 	led_deactivate(LED_1)
 	io.cleanup()
 
