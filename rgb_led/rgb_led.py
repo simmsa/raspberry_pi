@@ -65,7 +65,7 @@ yellow = [1, 1, 0]
 cyan = [0, 1, 1]
 purple = [1, 0, 1]
 
-colors = [red, green, blue]
+colors = [red, green, blue, white, yellow, cyan, purple]
 
 def main():
 	led_setup()
