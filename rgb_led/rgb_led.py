@@ -76,6 +76,8 @@ def rgb_cycle(times):
 def led_pulse(led):
 	p = io.PWM(led, 50)
 
+	p.start(0)
+
 	try:
 		while True:
 			for i in range(100):
@@ -83,9 +85,11 @@ def led_pulse(led):
 				time.sleep(0.01)
 			for i in range(100):
 				p.ChangeDutyCycle(100 - i)
-				time.sleep(0.02)
+				time.sleep(0.01)
 	except KeyboardInterrupt:
 		pass
+
+	p.stop()
 
 def main():
 	led_setup()
