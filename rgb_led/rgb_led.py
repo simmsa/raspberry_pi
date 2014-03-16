@@ -57,11 +57,18 @@ def rgb_activate(values):
 			led_deactivate(RGB[start])
 		start += 1
 
+red = [1, 0, 0]
+green = [0, 1, 0]
+blue = [0, 1, 0]
+
+colors = [red, green, blue]
+
 def main():
 	led_setup()
 	led_clear()
-	rgb_activate([1,0,0])
-	time.sleep(3)
+	for color in colors:
+		rgb_activate(color)
+		time.sleep(3)
 	led_clear()
 	io.cleanup()
 
