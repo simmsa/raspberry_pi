@@ -67,13 +67,16 @@ purple = [1, 0, 1]
 
 colors = [red, green, blue, white, yellow, cyan, purple]
 
+def rgb_cycle(times):
+	for x in xrange(times):
+		for color in colors:
+			rgb_activate(color)
+			time.sleep(0.1)
+
 def main():
 	led_setup()
 	led_clear()
-	for color in colors:
-		rgb_activate(color)
-		print "The color should be:", color
-		time.sleep(3)
+	rgb_cycle(100)
 	led_clear()
 	io.cleanup()
 
