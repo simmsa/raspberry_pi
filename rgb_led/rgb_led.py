@@ -48,12 +48,21 @@ def led_clear():
 	for val in RGB:
 		led_deactivate(val)
 
+def rgb_activate(values):
+	start = 0
+	for val in values:
+		if val > 0:
+			led_activate(RGB[start])
+		else:
+			led_deactivate(RGB[start])
+		start += 1
+
 def main():
 	led_setup()
 	led_clear()
-	led_activate(LED_1)
+	rgb_activate([1,0,0])
 	time.sleep(3)
-	led_deactivate(LED_1)
+	led_clear()
 	io.cleanup()
 
 main()
