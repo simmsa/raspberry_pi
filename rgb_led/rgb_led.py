@@ -73,17 +73,17 @@ def rgb_cycle(times):
 			rgb_activate(color)
 			time.sleep(0.1)
 
-def led_pulse(led, speed):
+def led_pulse(led, speed, lower_limit):
 	p = io.PWM(led, 50)
 
 	p.start(0)
 
 	try:
 		while True:
-			for i in range(50, 100):
+			for i in range(lower_limit, 100):
 				p.ChangeDutyCycle(i)
 				time.sleep(speed)
-			for i in range(100, 50, -1):
+			for i in range(100, lower_limit, -1):
 				p.ChangeDutyCycle(i)
 				time.sleep(speed)
 	except KeyboardInterrupt:
@@ -94,7 +94,7 @@ def led_pulse(led, speed):
 def main():
 	led_setup()
 	led_clear()
-	led_pulse(RGB_RED, 0.05)
+	led_pulse(RGB_RED, 0.05, 20)
 	led_clear()
 	io.cleanup()
 
