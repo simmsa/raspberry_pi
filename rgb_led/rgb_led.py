@@ -80,10 +80,10 @@ def led_pulse(led, speed):
 
 	try:
 		while True:
-			for i in range(20, 100):
+			for i in range(50, 100):
 				p.ChangeDutyCycle(i)
 				time.sleep(speed)
-			for i in range(20, 100):
+			for i in range(50, 100):
 				p.ChangeDutyCycle(100 - i)
 				time.sleep(speed)
 	except KeyboardInterrupt:
