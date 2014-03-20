@@ -26,9 +26,7 @@ def read_temp_raw():
 def read_temp():
 	start = time.time()
 	lines = read_temp_raw()
-	# while lines[0].strip()[-3:] != "YES":
-	# 	# time.sleep(0.2)
-	# 	lines = read_temp_raw()
+	raw_time = time.time() - start
 
 	equals_pos = lines[1].find("t=")
 
@@ -36,7 +34,7 @@ def read_temp():
 		temp_string = lines[1][equals_pos + 2:]
 		temp_c = float(temp_string) / 1000.0
 		temp_f = temp_c * 9.0 / 5.0 + 32
-		return temp_f, time.time() - start
+		return temp_f, raw_time, time.time() - start
 	else:
 		return False, time.time() - start
 
