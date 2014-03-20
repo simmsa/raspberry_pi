@@ -1,4 +1,5 @@
 import time
+import sys
 
 import RPi.GPIO as io
 
@@ -19,6 +20,9 @@ LED_3 = 12 # 18
 LED_4 = 13 # 21, 27
 LED_5 = 15 # 22
 
+argv_color = sys.argv[1]
+argv_speed = sys.argv[2]
+argv_lower_limit = sys.argv[3]
 
 LED = [LED_1, LED_2, LED_3, LED_4, LED_5]
 
@@ -35,7 +39,7 @@ def led_setup():
 	for val in LED:
 		io.setup(val, io.OUT)
 	for val in RGB:
-		io.setup(val, io.OUT)
+		io.setup(RGB[val], io.OUT)
 
 def led_activate(led):
 	io.output(led, LED_ON)
@@ -47,7 +51,7 @@ def led_clear():
 	for val in LED:
 		led_deactivate(val)
 	for val in RGB:
-		led_deactivate(val)
+		led_deactivate(RGB[val])
 
 def rgb_activate(values):
 	start = 0
@@ -66,7 +70,7 @@ yellow = [1, 1, 0]
 cyan = [0, 1, 1]
 purple = [1, 0, 1]
 
-colors = {"red": red, "green": green, "blue", blue, "white": white, "yellow": yellow, "cyan": cyan, "purple", purple}
+colors = {"red": red, "green": green, "blue": blue, "white": white, "yellow": yellow, "cyan": cyan, "purple": purple}
 
 def rgb_cycle(times):
 	for x in xrange(times):
@@ -101,6 +105,9 @@ def rgb_pulse(rgb_led, color, speed, lower_limit):
 	g.start(0)
 	b.start(0)
 
+	if color not in colors:
+		raise ValueError("Please enter a valid color")
+
 	try:
 		while True:
 			for i in range(lower_limit, 100):
@@ -123,7 +130,7 @@ def rgb_pulse(rgb_led, color, speed, lower_limit):
 def main():
 	led_setup()
 	led_clear()
-	rgb_pulse(RGB, colors["white"], 0.01, 20)
+	rgb_pulse(RGB, colors[argv_color], argv_speed, argv_lower_limit)
 	led_clear()
 	io.cleanup()
 
