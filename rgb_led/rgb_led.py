@@ -21,8 +21,8 @@ LED_4 = 13 # 21, 27
 LED_5 = 15 # 22
 
 argv_color = sys.argv[1]
-argv_speed = sys.argv[2]
-argv_lower_limit = sys.argv[3]
+argv_speed = float(sys.argv[2])
+argv_lower_limit = int(sys.argv[3])
 
 LED = [LED_1, LED_2, LED_3, LED_4, LED_5]
 
