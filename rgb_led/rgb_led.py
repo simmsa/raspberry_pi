@@ -26,7 +26,8 @@ RGB_RED = 16 # 23
 RGB_GREEN = 18 # 24
 RGB_BLUE = 22 # 25
 
-RGB = [RGB_RED, RGB_GREEN, RGB_BLUE]
+# RGB = [RGB_RED, RGB_GREEN, RGB_BLUE]
+RGB = {"red": RGB_RED, "green": RGB_GREEN, "blue": RGB_BLUE}
 
 def led_setup():
 	io.setmode(io.BOARD)
@@ -65,7 +66,7 @@ yellow = [1, 1, 0]
 cyan = [0, 1, 1]
 purple = [1, 0, 1]
 
-colors = [red, green, blue, white, yellow, cyan, purple]
+colors = {"red": red, "green": green, "blue", blue, "white": white, "yellow": yellow, "cyan": cyan, "purple", purple}
 
 def rgb_cycle(times):
 	for x in xrange(times):
@@ -91,10 +92,38 @@ def led_pulse(led, speed, lower_limit):
 
 	p.stop()
 
+def rgb_pulse(rgb_led, color, speed, lower_limit):
+	r = io.PWM(rgb_led["red"], 50)
+	g = io.PWM(rgb_led["green"], 50)
+	b = io.PWM(rgb_led["blue"], 50)
+
+	r.start(0)
+	g.start(0)
+	b.start(0)
+
+	try:
+		while True:
+			for i in range(lower_limit, 100):
+				r.ChangeDutyCycle(i * color[0])
+				g.ChangeDutyCycle(i * color[1])
+				b.ChangeDutyCycle(i * color[2])
+				time.sleep(speed)
+			for i in range(100, lower_limit, -1):
+				r.ChangeDutyCycle(i * color[0])
+				g.ChangeDutyCycle(i * color[1])
+				b.ChangeDutyCycle(i * color[2])
+				time.sleep(speed)
+	except KeyboardInterrupt:
+		pass
+
+	r.stop()
+	g.stop()
+	b.stop()
+
 def main():
 	led_setup()
 	led_clear()
-	led_pulse(RGB_RED, 0.05, 20)
+	rgb_pulse(RGB, colors["white"], 0.01, 20)
 	led_clear()
 	io.cleanup()
 
