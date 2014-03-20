@@ -10,9 +10,9 @@ signal_in = 18
 io.setup(signal_out, io.OUT)
 io.setup(signal_in, io.IN)
 
-while True:
-	io.output(signal_out, 1)
+io.output(signal_out, 1)
 
+while True:
 	print io.input(signal_in)
 
 	time.sleep(1)
