@@ -27,9 +27,9 @@ def read_temp_raw():
 
 def read_temp():
 	lines = read_temp_raw()
-	while lines[0].strip()[-3:] != "YES":
-		# time.sleep(0.2)
-		lines = read_temp_raw()
+	# while lines[0].strip()[-3:] != "YES":
+	# 	# time.sleep(0.2)
+	# 	lines = read_temp_raw()
 
 	equals_pos = lines[1].find("t=")
 
@@ -38,6 +38,8 @@ def read_temp():
 		temp_c = float(temp_string) / 1000.0
 		temp_f = temp_c * 9.0 / 5.0 + 32
 		return temp_f
+	else:
+		return False
 
 ######################## Switch On/Off
 
@@ -59,11 +61,20 @@ def check_on_off(signal_in, sequence_length):
 
 ######################## Main Loop
 
+previous_temp = None
+
 while True:
 	try:
 		if check_on_off(switch_in, 5):
 			print "Checking Temp..."
-			print read_temp()
+			temp_reading = read_temp()
+			if temp_reading:
+				print temp_reading
+				previous_temp = temp_reading
+			elif previous_temp:
+				print previous_temp
+			else:
+				print "No temp readings yet."
 		else:
 			print "Switch Off"
 
