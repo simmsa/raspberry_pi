@@ -36,9 +36,9 @@ def check_on_off(signal_in, sequence_length):
 		sequence.pop(0)
 
 	if 0 not in sequence:
-		return "Switch is on!"
+		return True
 	else:
-		return "Switch is off!"
+		return False
 
 while True:
 	try:
