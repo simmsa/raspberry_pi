@@ -25,7 +25,10 @@ def read_temp_raw():
 
 def read_temp():
 	start = time.time()
-	lines = read_temp_raw()
+	f = open(device_file, "r")
+	open_time = time.time() - start
+	lines = f.readlines()
+	f.close()
 	raw_time = time.time() - start
 
 	equals_pos = lines[1].find("t=")
@@ -34,7 +37,7 @@ def read_temp():
 		temp_string = lines[1][equals_pos + 2:]
 		temp_c = float(temp_string) / 1000.0
 		temp_f = temp_c * 9.0 / 5.0 + 32
-		return temp_f, raw_time, time.time() - start
+		return temp_f, open_time, raw_time, time.time() - start
 	else:
 		return False, time.time() - start
 
