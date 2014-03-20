@@ -21,13 +21,13 @@ while True:
 		signal = io.input(signal_in)
 		print signal
 		sequence.append(signal)
-		if 0 in sequence:
+		if 0 not in sequence:
 			io.output(led, 1)
 		else:
 			io.output(led, 0)
 		if len(sequence) > sequence_length:
 			sequence.pop(0)
-		time.sleep(1)
+		time.sleep(0.01)
 	except KeyboardInterrupt:
 		io.cleanup()
 		sys.exit()
