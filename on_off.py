@@ -5,7 +5,7 @@ import RPi.GPIO as io
 
 io.setmode(io.BOARD)
 
-sequence_length = sys.argv[1]
+sequence_length = int(sys.argv[1])
 
 signal_in = 18
 
@@ -19,7 +19,6 @@ sequence = []
 while True:
 	try:
 		signal = io.input(signal_in)
-		print signal
 		sequence.append(signal)
 		if 0 not in sequence:
 			io.output(led, 1)
