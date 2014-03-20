@@ -29,6 +29,7 @@ def read_temp():
 		temp_f = temp_c * 9.0 / 5.0 + 32
 		return temp_f
 
-while True:
-	print read_temp()
-	time.sleep(1)
+if __name__ == "__main__":
+	while True:
+		print read_temp()
+		time.sleep(1)

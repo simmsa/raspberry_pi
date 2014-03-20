@@ -40,11 +40,13 @@ def check_on_off(signal_in, sequence_length):
 	else:
 		return False
 
-while True:
-	try:
-		print check_on_off(signal_in, 5)
-		time.sleep(0.01)
-	except KeyboardInterrupt:
-		io.cleanup()
-		sys.exit(1)
+
+if __name__ == "__main__":
+	while True:
+		try:
+			print check_on_off(signal_in, 5)
+			time.sleep(0.01)
+		except KeyboardInterrupt:
+			io.cleanup()
+			sys.exit(1)
 

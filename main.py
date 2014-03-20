@@ -13,6 +13,7 @@ sequence = []
 while True:
 	try:
 		if check_on_off(switch_in, 5):
+			print "Checking Temp..."
 			print read_temp()
 
 		time.sleep(0.001)

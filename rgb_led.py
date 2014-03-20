@@ -133,5 +133,5 @@ def main():
 	rgb_pulse(RGB, colors[argv_color], argv_speed, argv_lower_limit)
 	led_clear()
 	io.cleanup()
-
-main()
+if __name__ == "__main__":
+	main()
