@@ -1,4 +1,5 @@
 import time
+import sys
 
 import RPi.GPIO as io
 
@@ -13,6 +14,10 @@ io.setup(signal_in, io.IN)
 io.output(signal_out, 1)
 
 while True:
-	print io.input(signal_in)
+	try:
+		print io.input(signal_in)
 
-	time.sleep(1)
+		time.sleep(1)
+	except KeyboardInterrupt:
+		io.cleanup()
+		sys.exit()
