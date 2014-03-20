@@ -105,7 +105,7 @@ def rgb_pulse(rgb_led, color, speed, lower_limit):
 	g.start(0)
 	b.start(0)
 
-	if color not in colors:
+	if color not in colors.keys():
 		raise ValueError("Please enter a valid color")
 
 	try:
