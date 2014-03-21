@@ -1,3 +1,5 @@
+import time
+
 import twitter
 
 import twitter_tokens
@@ -18,7 +20,10 @@ def temp_request(current_temp):
 	if "what" in latest_status_text and "temperature" in latest_status_text:
 		api.DestroyStatus(latest_status_id)
 		print "Getting and tweeting temp!"
-		api.PostUpdate("The current temperature is %d deg." % current_temp)
+		api.PostUpdate("The current temperature is %d deg. %s" % (current_temp, time.ctime()))
 
 def tweet(tweet):
-	api.PostUpdate(tweet)
+	try:
+		api.PostUpdate("%s %s" % (tweet, time.ctime()))
+	except:
+		pass
