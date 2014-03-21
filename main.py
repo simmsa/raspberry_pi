@@ -162,16 +162,6 @@ while True:
 
 		# time.sleep(0.001)
 
-		speed = 2000
-
-		for i in range(speed):
-			color = colors[current_color]
-			if switch_status:
-				r.ChangeDutyCycle(i / (speed / 10) * color[0])
-				g.ChangeDutyCycle(i / (speed / 10) * color[1])
-				b.ChangeDutyCycle(i / (speed / 10) * color[2])
-			time.sleep(0.001)
-
 		temp_reading = read_temp()
 		if temp_reading:
 			print temp_reading
@@ -192,16 +182,23 @@ while True:
 		else:
 			print previous_temp
 
-
-		for i in range (speed, 1, -1):
+		for i in range(100):
 			color = colors[current_color]
 			if switch_status:
-				r.ChangeDutyCycle(i / (speed / 10) * color[0])
-				g.ChangeDutyCycle(i / (speed / 10) * color[1])
-				b.ChangeDutyCycle(i / (speed / 10) * color[2])
+				r.ChangeDutyCycle(i * color[0])
+				g.ChangeDutyCycle(i * color[1])
+				b.ChangeDutyCycle(i * color[2])
+			time.sleep(0.01)
+
+		for i in range (100, 1, -1):
+			color = colors[current_color]
+			if switch_status:
+				r.ChangeDutyCycle(i * color[0])
+				g.ChangeDutyCycle(i * color[1])
+				b.ChangeDutyCycle(i * color[2])
 			time.sleep(0.001)
 
-
+		
 
 	except KeyboardInterrupt:
 		io.cleanup()
