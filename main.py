@@ -54,8 +54,9 @@ def continuous_read_temp(delay):
 
 switch_in = 10
 
+io.setup(switch_in, io.IN)
+
 def check_on_off(signal_in, sequence_length):
-	io.setup(signal_in, io.IN)
 	signal = io.input(signal_in)
 	sequence.append(signal)
 	if len(sequence) > sequence_length:
@@ -128,6 +129,8 @@ def rgb_pulse(rgb_led, color, speed, lower_limit):
 
 previous_temp = None
 
+rgb_setup()
+
 r = io.PWM(RGB["red"], 50)
 g = io.PWM(RGB["green"], 50)
 b = io.PWM(RGB["blue"], 50)
@@ -157,21 +160,29 @@ while True:
 
 		# time.sleep(0.001)
 
-		for i in range(1000):
+		speed = 2000
+
+		for i in range(speed):
 			color = colors[current_color]
 			if check_on_off(switch_in, 25):
-				r.ChangeDutyCycle(i / 10 * color[0])
-				g.ChangeDutyCycle(i / 10 * color[1])
-				b.ChangeDutyCycle(i / 10 * color[2])
+				r.ChangeDutyCycle(i / (speed / 10) * color[0])
+				g.ChangeDutyCycle(i / (speed / 10) * color[1])
+				b.ChangeDutyCycle(i / (speed / 10) * color[2])
 
 		temp_reading = read_temp()
+		if temp_reading:
+			print temp_reading
+			previous_temp = temp_reading
+		else:
+			print previous_temp
 
-		for i in range (1000, 1, -1):
+
+		for i in range (speed, 1, -1):
 			color = colors[current_color]
 			if check_on_off(switch_in, 25):
-				r.ChangeDutyCycle(i / 10 * color[0])
-				g.ChangeDutyCycle(i / 10 * color[1])
-				b.ChangeDutyCycle(i / 10 * color[2])
+				r.ChangeDutyCycle(i / (speed / 10) * color[0])
+				g.ChangeDutyCycle(i / (speed / 10) * color[1])
+				b.ChangeDutyCycle(i / (speed / 10) * color[2])
 
 
 
