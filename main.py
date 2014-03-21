@@ -183,8 +183,6 @@ while True:
 		else:
 			switch_status = True
 
-		print switch_status, len(sequence)
-
 		temp_reading = read_temp()
 		if temp_reading:
 			print temp_reading
@@ -216,7 +214,7 @@ while True:
 					temp_status = "really_cold"
 
 		if count % 2 == 0:
-			temp_request(temp_reading)
+			tweet.temp_request(temp_reading)
 
 			previous_temp = temp_reading
 		else:
