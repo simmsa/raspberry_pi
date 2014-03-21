@@ -162,6 +162,21 @@ while True:
 
 		# time.sleep(0.001)
 
+		r.ChangeDutyCycle(0)
+		g.ChangeDutyCycle(0)
+		b.ChangeDutyCycle(0)
+
+		sequence = []
+
+		for i in range(250):
+			signal = io.input(switch_in)
+			sequence.append(signal)
+
+		if 0 in sequence:
+			switch_status = False
+		else:
+			switch_status = True
+
 		temp_reading = read_temp()
 		if temp_reading:
 			print temp_reading
@@ -188,7 +203,7 @@ while True:
 				r.ChangeDutyCycle(i * color[0])
 				g.ChangeDutyCycle(i * color[1])
 				b.ChangeDutyCycle(i * color[2])
-			time.sleep(0.01)
+			time.sleep(0.02)
 
 		for i in range (100, 1, -1):
 			color = colors[current_color]
@@ -196,9 +211,9 @@ while True:
 				r.ChangeDutyCycle(i * color[0])
 				g.ChangeDutyCycle(i * color[1])
 				b.ChangeDutyCycle(i * color[2])
-			time.sleep(0.001)
+			time.sleep(0.02)
 
-		
+
 
 	except KeyboardInterrupt:
 		io.cleanup()
