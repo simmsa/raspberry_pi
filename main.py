@@ -141,6 +141,8 @@ b.start(0)
 
 current_color = "white"
 
+switch_status = True
+
 sequence = []
 
 while True:
@@ -164,14 +166,28 @@ while True:
 
 		for i in range(speed):
 			color = colors[current_color]
-			if check_on_off(switch_in, 25):
+			if switch_status:
 				r.ChangeDutyCycle(i / (speed / 10) * color[0])
 				g.ChangeDutyCycle(i / (speed / 10) * color[1])
 				b.ChangeDutyCycle(i / (speed / 10) * color[2])
+			time.sleep(0.001)
 
 		temp_reading = read_temp()
 		if temp_reading:
 			print temp_reading
+
+			if temp_reading >= 90:
+				current_color = "red"
+			elif temp_reading >= 75:
+				current_color = "yellow"
+			elif temp_reading >= 45:
+				current_color = "green"
+			elif temp_reading >= 32:
+				current_color = "cyan"
+			else:
+				current_color = "blue"
+
+
 			previous_temp = temp_reading
 		else:
 			print previous_temp
@@ -179,10 +195,11 @@ while True:
 
 		for i in range (speed, 1, -1):
 			color = colors[current_color]
-			if check_on_off(switch_in, 25):
+			if switch_status:
 				r.ChangeDutyCycle(i / (speed / 10) * color[0])
 				g.ChangeDutyCycle(i / (speed / 10) * color[1])
 				b.ChangeDutyCycle(i / (speed / 10) * color[2])
+			time.sleep(0.001)
 
 
 
