@@ -6,6 +6,7 @@ import thread
 
 import RPi.GPIO as io
 
+import tweet
 
 io.setmode(io.BOARD)
 
@@ -145,6 +146,10 @@ switch_status = True
 
 sequence = []
 
+temp_status = "normal"
+
+count = 0
+
 while True:
 	try:
 		# if check_on_off(switch_in, 5):
@@ -171,11 +176,14 @@ while True:
 		for i in range(250):
 			signal = io.input(switch_in)
 			sequence.append(signal)
+			time.sleep(0.01)
 
 		if 0 in sequence:
 			switch_status = False
 		else:
 			switch_status = True
+
+		print switch_status, len(sequence)
 
 		temp_reading = read_temp()
 		if temp_reading:
@@ -183,15 +191,32 @@ while True:
 
 			if temp_reading >= 90:
 				current_color = "red"
+				if temp_status != "really hot":
+					tweet.tweet("Holy cow it is really hot in here!")
+					temp_status = "really hot"
 			elif temp_reading >= 75:
 				current_color = "yellow"
+				if temp_status != "hot":
+					tweet.tweet("Man I'm starting to sweat in here!")
+					temp_status = "hot"
 			elif temp_reading >= 45:
 				current_color = "green"
+				if temp_status != "normal":
+					tweet.tweet("Looks like everything is back to normal.")
+					temp_status = "normal"
 			elif temp_reading >= 32:
 				current_color = "cyan"
+				if temp_status != "cold":
+					tweet.tweet("Brr.. its getting colder in here!")
+					temp_status = "cold"
 			else:
 				current_color = "blue"
+				if temp_status != "really cold":
+					tweet.tweet("Come on turn up the heat, I'm freezin my ass off in here!")
+					temp_status = "really_cold"
 
+		if count % 2 == 0:
+			temp_request(temp_reading)
 
 			previous_temp = temp_reading
 		else:
@@ -213,7 +238,7 @@ while True:
 				b.ChangeDutyCycle(i * color[2])
 			time.sleep(0.02)
 
-
+		count += 1
 
 	except KeyboardInterrupt:
 		io.cleanup()
