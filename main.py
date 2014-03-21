@@ -148,7 +148,9 @@ sequence = []
 
 temp_status = "normal"
 
-count = 0
+last_tweet_check = time.time()
+
+tweet_check_count = 0
 
 while True:
 	try:
@@ -213,12 +215,15 @@ while True:
 					tweet.tweet("Come on turn up the heat, I'm freezin my ass off in here!")
 					temp_status = "really_cold"
 
-		if count % 2 == 0:
-			tweet.temp_request(temp_reading)
-
 			previous_temp = temp_reading
 		else:
 			print previous_temp
+
+		if time.time() - last_tweet_check > 60:
+			# tweet.temp_request(temp_reading)
+			print "The tweet check count is:", tweet_check_count
+			last_tweet_check = time.time()
+			tweet_check_count += 1
 
 		for i in range(100):
 			color = colors[current_color]
@@ -235,8 +240,6 @@ while True:
 				g.ChangeDutyCycle(i * color[1])
 				b.ChangeDutyCycle(i * color[2])
 			time.sleep(0.02)
-
-		count += 1
 
 	except KeyboardInterrupt:
 		io.cleanup()
