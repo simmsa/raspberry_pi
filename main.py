@@ -53,7 +53,7 @@ def continuous_read_temp(delay):
 
 ######################## Switch On/Off
 
-switch_in = 10
+switch_in = 12
 
 io.setup(switch_in, io.IN)
 
@@ -220,7 +220,7 @@ while True:
 			print previous_temp
 
 		if time.time() - last_tweet_check > 60:
-			# tweet.temp_request(temp_reading)
+			tweet.temp_request(temp_reading)
 			print "The tweet check count is:", tweet_check_count
 			last_tweet_check = time.time()
 			tweet_check_count += 1
