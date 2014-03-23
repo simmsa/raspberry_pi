@@ -21,14 +21,14 @@ def temp_request(current_temp):
 		if "what" in latest_status_text and "temperature" in latest_status_text:
 			api.DestroyStatus(latest_status_id)
 			print "Getting and tweeting temp!"
-			api.PostUpdate("The current temperature is %d deg. %s" % (current_temp, time.ctime()))
+			api.PostUpdate("The current temperature is %d deg. (%s)" % (current_temp, time.ctime()))
 	except:
 		print "There is a problem with connecting to twitter, please check your internet connection."
 		pass
 
 def tweet(tweet):
 	try:
-		api.PostUpdate("%s %s" % (tweet, time.ctime()))
+		api.PostUpdate("%s (%s)" % (tweet, time.ctime()))
 	except:
 		print "There is a problem connecting to twitter, could not check the temperature at this time?"
 		pass

@@ -192,9 +192,9 @@ while True:
 			if temp_reading >= 90:
 				current_color = "red"
 				if temp_status != "really hot":
-					tweet.tweet("Holy cow it is really hot in here!")
+					tweet.tweet("Holy cow it's really hot in here! My leaves are starting to burn!")
 					temp_status = "really hot"
-			elif temp_reading >= 75:
+			elif temp_reading >= 80:
 				current_color = "yellow"
 				if temp_status != "hot":
 					tweet.tweet("Man I'm starting to sweat in here!")
@@ -207,7 +207,7 @@ while True:
 			elif temp_reading >= 32:
 				current_color = "cyan"
 				if temp_status != "cold":
-					tweet.tweet("Brr.. its getting colder in here!")
+					tweet.tweet("Brr.. it's getting colder in here!")
 					temp_status = "cold"
 			else:
 				current_color = "blue"
@@ -228,6 +228,11 @@ while True:
 			except:
 				print "There was a problem with threading!"
 				pass
+
+			try:
+				os.popen("ping -c 5 192.168.0.2")
+			except:
+				print "Unable to ping wifi!"
 
 		for i in range(100):
 			color = colors[current_color]
