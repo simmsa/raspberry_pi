@@ -245,7 +245,8 @@ while True:
 				b.ChangeDutyCycle(i * color[2])
 			time.sleep(0.02)
 
-	except KeyboardInterrupt:
+	except:
+		print "The script was stopped."
 		io.cleanup()
 		sys.exit(1)
 
@@ -253,8 +254,4 @@ while True:
 		g.stop()
 		b.stop()
 
-	finally:
-		io.cleanup()
-		r.stop()
-		g.stop()
-		b.stop()
+
