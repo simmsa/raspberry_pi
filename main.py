@@ -220,10 +220,14 @@ while True:
 			print previous_temp
 
 		if time.time() - last_tweet_check > 60:
-			tweet.temp_request(temp_reading)
-			print "The tweet check count is:", tweet_check_count
-			last_tweet_check = time.time()
-			tweet_check_count += 1
+			try:
+				thread.start_new_thread(tweet.temp_request, (temp_reading,))
+				print "The tweet check count is:", tweet_check_count
+				last_tweet_check = time.time()
+				tweet_check_count += 1
+			except:
+				print "There was a problem with threading!"
+				pass
 
 		for i in range(100):
 			color = colors[current_color]
