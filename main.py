@@ -175,15 +175,15 @@ while True:
 
 		sequence = []
 
-		for i in range(250):
-			signal = io.input(switch_in)
-			sequence.append(signal)
-			time.sleep(0.01)
+		# for i in range(250):
+		# 	signal = io.input(switch_in)
+		# 	sequence.append(signal)
+		# 	time.sleep(0.01)
 
-		if 0 in sequence:
-			switch_status = False
-		else:
-			switch_status = True
+		# if 0 in sequence:
+		# 	switch_status = False
+		# else:
+		# 	switch_status = True
 
 		temp_reading = read_temp()
 		if temp_reading:
@@ -253,3 +253,8 @@ while True:
 		g.stop()
 		b.stop()
 
+	finally:
+		io.cleanup()
+		r.stop()
+		g.stop()
+		b.stop()
