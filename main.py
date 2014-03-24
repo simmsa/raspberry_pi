@@ -199,7 +199,7 @@ while True:
 				if temp_status != "hot":
 					tweet.tweet("Man I'm starting to sweat in here!")
 					temp_status = "hot"
-			elif temp_reading >= 45:
+			elif temp_reading >= 50:
 				current_color = "green"
 				if temp_status != "normal":
 					tweet.tweet("Looks like everything is back to normal.")
