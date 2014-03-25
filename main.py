@@ -216,16 +216,18 @@ while True:
 				os.popen("ping -c 3 www.google.com")
 			except:
 				print "Unable to ping google! @ %s" % time.ctime()
+				pass
 
 			try:
 				ifconfig = os.popen("ifconfig wlan0")
-				if "inet addr:" not in ifconfig:
+				if "inet addr:" not in ifconfig.read():
 					print "Forcing connection to wifi, I hope this works @ %s" % time.ctime()
 					try:
 						force_wifi = os.popen("ifdown --force wlan0")
-						print force_wifi
+						print force_wifi.read()
 					except:
 						print "Unable to force wifi connection. @ %s" % time.ctime()
+						pass
 
 			except:
 				print "There was a problem retrieving ifconfig for wlan0 @ %s" % time.ctime()
