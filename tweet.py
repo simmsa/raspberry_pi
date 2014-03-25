@@ -23,12 +23,12 @@ def temp_request(current_temp):
 			print "Getting and tweeting temp!"
 			api.PostUpdate("The current temperature is %d deg. (%s)" % (current_temp, time.ctime()))
 	except:
-		print "There is a problem with connecting to twitter, please check your internet connection."
+		print "There is a problem with connecting to twitter, please check your internet connection. %s" % time.ctime()
 		pass
 
 def tweet(tweet):
 	try:
 		api.PostUpdate("%s (%s)" % (tweet, time.ctime()))
 	except:
-		print "There is a problem connecting to twitter, could not check the temperature at this time?"
+		print "There is a problem connecting to twitter, could not check the temperature at this time? %s" % time.ctime()
 		pass

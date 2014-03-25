@@ -154,21 +154,6 @@ tweet_check_count = 0
 
 while True:
 	try:
-		# if check_on_off(switch_in, 5):
-		# 	print "Checking Temp..."
-		# 	temp_reading = read_temp()
-		# 	if temp_reading:
-		# 		print temp_reading
-		# 		previous_temp = temp_reading
-		# 	elif previous_temp:
-		# 		print previous_temp
-		# 	else:
-		# 		print "No temp readings yet."
-		# else:
-		# 	print "Switch Off"
-
-		# time.sleep(0.001)
-
 		r.ChangeDutyCycle(0)
 		g.ChangeDutyCycle(0)
 		b.ChangeDutyCycle(0)
@@ -220,6 +205,32 @@ while True:
 			print previous_temp
 
 		if time.time() - last_tweet_check > 60:
+
+			try:
+				os.popen("ping -c 5 192.168.0.2")
+			except:
+				print "Unable to ping wifi!"
+				pass
+
+			try:
+				os.popen("ping -c 3 www.google.com")
+			except:
+				print "Unable to ping google! @ %s" % time.ctime()
+
+			try:
+				ifconfig = os.popen("ifconfig wlan0")
+				if "inet addr:" not in ifconfig:
+					print "Forcing connection to wifi, I hope this works @ %s" % time.ctime()
+					try:
+						force_wifi = os.popen("ifdown --force wlan0")
+						print force_wifi
+					except:
+						print "Unable to force wifi connection. @ %s" % time.ctime()
+
+			except:
+				print "There was a problem retrieving ifconfig for wlan0 @ %s" % time.ctime()
+				pass
+
 			try:
 				thread.start_new_thread(tweet.temp_request, (temp_reading,))
 				print "The tweet check count is:", tweet_check_count
@@ -229,10 +240,7 @@ while True:
 				print "There was a problem with threading!"
 				pass
 
-			try:
-				os.popen("ping -c 5 192.168.0.2")
-			except:
-				print "Unable to ping wifi!"
+			
 
 		for i in range(100):
 			color = colors[current_color]
