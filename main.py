@@ -126,6 +126,8 @@ def rgb_pulse(rgb_led, color, speed, lower_limit):
 	b.stop()
 ########################## Tweeting Functions
 
+last_temp_tweet = [time.time()]
+
 def temp_change_tweet(message):
 	if time.now() - last_temp_tweet[0] > 300:
 		tweet.tweet(message)
@@ -155,7 +157,7 @@ sequence = []
 
 temp_status = "normal"
 
-last_temp_tweet = [time.time()]
+
 
 last_tweet_check = time.time()
 
@@ -269,7 +271,8 @@ while True:
 				b.ChangeDutyCycle(i * color[2])
 			time.sleep(0.02)
 
-	except:
+	except Exception, e:
+		print e
 		print "The script was stopped."
 		io.cleanup()
 		sys.exit(1)
