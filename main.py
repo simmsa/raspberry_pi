@@ -124,6 +124,13 @@ def rgb_pulse(rgb_led, color, speed, lower_limit):
 	r.stop()
 	g.stop()
 	b.stop()
+########################## Tweeting Functions
+
+def temp_change_tweet(message):
+	if time.now() - last_temp_tweet[0] > 300:
+		tweet.tweet(message)
+		last_temp_tweet[0] = time.now()
+
 
 
 ######################## Main Loop
@@ -147,6 +154,8 @@ switch_status = True
 sequence = []
 
 temp_status = "normal"
+
+last_temp_tweet = [time.time()]
 
 last_tweet_check = time.time()
 
@@ -177,27 +186,27 @@ while True:
 			if temp_reading >= 90:
 				current_color = "red"
 				if temp_status != "really hot":
-					tweet.tweet("Holy cow it's really hot in here! My leaves are starting to burn!")
+					temp_change_tweet("Holy cow it's really hot in here! My leaves are starting to burn!")
 					temp_status = "really hot"
 			elif temp_reading >= 80:
 				current_color = "yellow"
 				if temp_status != "hot":
-					tweet.tweet("Man I'm starting to sweat in here!")
+					temp_change_tweet("Man I'm starting to sweat in here!")
 					temp_status = "hot"
 			elif temp_reading >= 50:
 				current_color = "green"
 				if temp_status != "normal":
-					tweet.tweet("Looks like everything is back to normal.")
+					temp_change_tweet("Looks like everything is back to normal.")
 					temp_status = "normal"
 			elif temp_reading >= 32:
 				current_color = "cyan"
 				if temp_status != "cold":
-					tweet.tweet("Brr.. it's getting colder in here!")
+					temp_change_tweet("Brr.. it's getting colder in here!")
 					temp_status = "cold"
 			else:
 				current_color = "blue"
 				if temp_status != "really cold":
-					tweet.tweet("Come on turn up the heat, I'm freezin my ass off in here!")
+					temp_change_tweet("Come on turn up the heat, I'm freezin my ass off in here!")
 					temp_status = "really_cold"
 
 			previous_temp = temp_reading
