@@ -129,7 +129,7 @@ def rgb_pulse(rgb_led, color, speed, lower_limit):
 last_temp_tweet = [time.time()]
 
 def temp_change_tweet(message):
-	if time.now() - last_temp_tweet[0] > 300:
+	if time.time() - last_temp_tweet[0] > 300:
 		tweet.tweet(message)
 		last_temp_tweet[0] = time.now()
 
