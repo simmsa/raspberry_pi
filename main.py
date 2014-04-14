@@ -131,7 +131,7 @@ last_temp_tweet = [time.time()]
 def temp_change_tweet(message):
 	if time.time() - last_temp_tweet[0] > 300:
 		tweet.tweet(message)
-		last_temp_tweet[0] = time.now()
+		last_temp_tweet[0] = time.time()
 
 
 
