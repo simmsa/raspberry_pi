@@ -15,7 +15,7 @@ matplotlib.rc('xtick.minor', size=0)
 matplotlib.rc('ytick.major', size=0)
 matplotlib.rc('ytick.minor', size=0)
 
-data = [1, 2, 4, 5, 4, 3]
+
 
 plt.plot(data,'c', linewidth=2.5)
 plt.ylim(min(data) - 1, max(data) + 1)
@@ -28,6 +28,6 @@ ydata_copy[0] = ""
 date = time.strftime("%B %d %I:%M %p")
 
 plt.xticks(data_len, ("", date, "", "", date, ""))
-plt.yticks(data, ("", 2, 3, 4, 5))
+
 
 plt.savefig("font-test.png")
