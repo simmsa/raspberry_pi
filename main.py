@@ -234,10 +234,15 @@ while True:
 				if "inet addr:" not in ifconfig.read():
 					print "Forcing connection to wifi, I hope this works @ %s" % time.ctime()
 					try:
-						force_wifi = os.popen("ifdown --force wlan0")
-						print force_wifi.read()
-					except:
+						force_wifi_shutdown = os.popen("ifdown --force wlan0")
+						print "Shutting down wifi connection @ %s" % time.ctime()
+						time.sleep(10)
+						print "Reconnecting wifi connection @ %s" % time.ctime()
+						force_wifi_reconnection = os.popen("ifup --force wlan0")
+						print "Wifi reconnection said: %s" % force_wifi_reconnection.read()
+					except Exception, e:
 						print "Unable to force wifi connection. @ %s" % time.ctime()
+						print "Wifi reconnection error: %s" % e
 						pass
 
 			except:
