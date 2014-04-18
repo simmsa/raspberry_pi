@@ -171,16 +171,6 @@ while True:
 
 		sequence = []
 
-		# for i in range(250):
-		# 	signal = io.input(switch_in)
-		# 	sequence.append(signal)
-		# 	time.sleep(0.01)
-
-		# if 0 in sequence:
-		# 	switch_status = False
-		# else:
-		# 	switch_status = True
-
 		temp_reading = read_temp()
 		if temp_reading:
 			print temp_reading
@@ -223,31 +213,31 @@ while True:
 				print "Unable to ping wifi!"
 				pass
 
-			try:
+                        try:
 				os.popen("ping -c 3 www.google.com")
 			except:
 				print "Unable to ping google! @ %s" % time.ctime()
 				pass
 
-			try:
-				ifconfig = os.popen("ifconfig wlan0")
-				if "inet addr:" not in ifconfig.read():
-					print "Forcing connection to wifi, I hope this works @ %s" % time.ctime()
-					try:
-						force_wifi_shutdown = os.popen("ifdown --force wlan0")
-						print "Shutting down wifi connection @ %s" % time.ctime()
-						time.sleep(10)
-						print "Reconnecting wifi connection @ %s" % time.ctime()
-						force_wifi_reconnection = os.popen("ifup --force wlan0")
-						print "Wifi reconnection said: %s" % force_wifi_reconnection.read()
-					except Exception, e:
-						print "Unable to force wifi connection. @ %s" % time.ctime()
-						print "Wifi reconnection error: %s" % e
-						pass
+			# try:
+			# 	ifconfig = os.popen("ifconfig wlan0")
+			# 	if "inet addr:" not in ifconfig.read():
+			# 		print "Forcing connection to wifi, I hope this works @ %s" % time.ctime()
+			# 		try:
+			# 			force_wifi_shutdown = os.popen("ifdown --force wlan0")
+			# 			print "Shutting down wifi connection @ %s" % time.ctime()
+			# 			time.sleep(10)
+			# 			print "Reconnecting wifi connection @ %s" % time.ctime()
+			# 			force_wifi_reconnection = os.popen("ifup --force wlan0")
+			# 			print "Wifi reconnection said: %s" % force_wifi_reconnection.read()
+			# 		except Exception, e:
+			# 			print "Unable to force wifi connection. @ %s" % time.ctime()
+			# 			print "Wifi reconnection error: %s" % e
+			# 			pass
 
-			except:
-				print "There was a problem retrieving ifconfig for wlan0 @ %s" % time.ctime()
-				pass
+			# except:
+			# 	print "There was a problem retrieving ifconfig for wlan0 @ %s" % time.ctime()
+			# 	pass
 
 			try:
 				thread.start_new_thread(tweet.temp_request, (temp_reading,))
