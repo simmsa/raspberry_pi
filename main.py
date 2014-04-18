@@ -266,6 +266,10 @@ while True:
 				b.ChangeDutyCycle(i * color[2])
 			time.sleep(0.02)
 
+		# Forcing stdout to write
+
+		sys.stdout.flush()
+
 	except Exception, e:
 		print e
 		print "The script was stopped."
