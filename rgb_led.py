@@ -34,33 +34,33 @@ RGB_BLUE = 22 # 25
 RGB = {"red": RGB_RED, "green": RGB_GREEN, "blue": RGB_BLUE}
 
 def led_setup():
-	io.setmode(io.BOARD)
+    io.setmode(io.BOARD)
 
-	for val in LED:
-		io.setup(val, io.OUT)
-	for val in RGB:
-		io.setup(RGB[val], io.OUT)
+    for val in LED:
+        io.setup(val, io.OUT)
+    for val in RGB:
+        io.setup(RGB[val], io.OUT)
 
 def led_activate(led):
-	io.output(led, LED_ON)
+    io.output(led, LED_ON)
 
 def led_deactivate(led):
-	io.output(led, LED_OFF)
+    io.output(led, LED_OFF)
 
 def led_clear():
-	for val in LED:
-		led_deactivate(val)
-	for val in RGB:
-		led_deactivate(RGB[val])
+    for val in LED:
+        led_deactivate(val)
+    for val in RGB:
+        led_deactivate(RGB[val])
 
 def rgb_activate(values):
-	start = 0
-	for val in values:
-		if val > 0:
-			led_activate(RGB[start])
-		else:
-			led_deactivate(RGB[start])
-		start += 1
+    start = 0
+    for val in values:
+        if val > 0:
+            led_activate(RGB[start])
+        else:
+            led_deactivate(RGB[start])
+        start += 1
 
 red = [1, 0, 0]
 green = [0, 1, 0]
@@ -73,65 +73,65 @@ purple = [1, 0, 1]
 colors = {"red": red, "green": green, "blue": blue, "white": white, "yellow": yellow, "cyan": cyan, "purple": purple}
 
 def rgb_cycle(times):
-	for x in xrange(times):
-		for color in colors:
-			rgb_activate(color)
-			time.sleep(0.1)
+    for x in xrange(times):
+        for color in colors:
+            rgb_activate(color)
+            time.sleep(0.1)
 
 def led_pulse(led, speed, lower_limit):
-	p = io.PWM(led, 50)
+    p = io.PWM(led, 50)
 
-	p.start(0)
+    p.start(0)
 
-	try:
-		while True:
-			for i in range(lower_limit, 100):
-				p.ChangeDutyCycle(i)
-				time.sleep(speed)
-			for i in range(100, lower_limit, -1):
-				p.ChangeDutyCycle(i)
-				time.sleep(speed)
-	except KeyboardInterrupt:
-		pass
+    try:
+        while True:
+            for i in range(lower_limit, 100):
+                p.ChangeDutyCycle(i)
+                time.sleep(speed)
+            for i in range(100, lower_limit, -1):
+                p.ChangeDutyCycle(i)
+                time.sleep(speed)
+    except KeyboardInterrupt:
+        pass
 
-	p.stop()
+    p.stop()
 
 def rgb_pulse(rgb_led, color, speed, lower_limit):
-	r = io.PWM(rgb_led["red"], 50)
-	g = io.PWM(rgb_led["green"], 50)
-	b = io.PWM(rgb_led["blue"], 50)
+    r = io.PWM(rgb_led["red"], 50)
+    g = io.PWM(rgb_led["green"], 50)
+    b = io.PWM(rgb_led["blue"], 50)
 
-	r.start(0)
-	g.start(0)
-	b.start(0)
+    r.start(0)
+    g.start(0)
+    b.start(0)
 
-	if color not in colors.values():
-		raise ValueError("Please enter a valid color")
+    if color not in colors.values():
+        raise ValueError("Please enter a valid color")
 
-	try:
-		while True:
-			for i in range(lower_limit, 100):
-				r.ChangeDutyCycle(i * color[0])
-				g.ChangeDutyCycle(i * color[1])
-				b.ChangeDutyCycle(i * color[2])
-				time.sleep(speed)
-			for i in range(100, lower_limit, -1):
-				r.ChangeDutyCycle(i * color[0])
-				g.ChangeDutyCycle(i * color[1])
-				b.ChangeDutyCycle(i * color[2])
-				time.sleep(speed)
-	except KeyboardInterrupt:
-		pass
+    try:
+        while True:
+            for i in range(lower_limit, 100):
+                r.ChangeDutyCycle(i * color[0])
+                g.ChangeDutyCycle(i * color[1])
+                b.ChangeDutyCycle(i * color[2])
+                time.sleep(speed)
+            for i in range(100, lower_limit, -1):
+                r.ChangeDutyCycle(i * color[0])
+                g.ChangeDutyCycle(i * color[1])
+                b.ChangeDutyCycle(i * color[2])
+                time.sleep(speed)
+    except KeyboardInterrupt:
+        pass
 
-	r.stop()
-	g.stop()
-	b.stop()
+    r.stop()
+    g.stop()
+    b.stop()
 
 def main():
-	led_setup()
-	led_clear()
-	rgb_pulse(RGB, colors[argv_color], argv_speed, argv_lower_limit)
-	led_clear()
-	io.cleanup()
+    led_setup()
+    led_clear()
+    rgb_pulse(RGB, colors[argv_color], argv_speed, argv_lower_limit)
+    led_clear()
+    io.cleanup()
 if __name__ == "__main__":
-	main()
+    main()
