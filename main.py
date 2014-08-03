@@ -35,7 +35,7 @@ def read_temp():
 	if equals_pos != 1:
 		temp_string = lines[1][equals_pos + 2:]
 		temp_c = float(temp_string) / 1000.0
-		temp_f = temp_c * 9.0 / 5.0 + 32
+		temp_f = temp_c * 9.0 / 5.0 + 33
 		return temp_f
 	else:
 		return False
@@ -133,7 +133,25 @@ def temp_change_tweet(message):
 		tweet.tweet(message)
 		last_temp_tweet[0] = time.time()
 
+######################## Graphing Functions
 
+def write_last_24_hour_graph_render():
+    f = open("last_24_hour_graph_render.txt", "w")
+    f.write(str(time.time()))
+    f.close()
+
+def get_last_24_hour_graph_render():
+    f = open("last_24_hour_graph_render.txt")
+    return float(f.read())
+
+def write_last_7_days_graph_render():
+    f = open("last_7_days_graph_render.txt", "w")
+    f.write(str(time.time()))
+    f.close()
+
+def get_last_7_days_graph_render():
+    f = open("last_7_days_graph_render.txt", "w")
+    return float(f.read())
 
 ######################## Main Loop
 
@@ -156,8 +174,6 @@ switch_status = True
 sequence = []
 
 temp_status = "normal"
-
-
 
 last_tweet_check = time.time()
 
@@ -215,6 +231,7 @@ while True:
 		else:
 			print previous_temp
 
+                # One Minute Time Check
 		if time.time() - last_tweet_check > 60:
 
 			try:

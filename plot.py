@@ -44,6 +44,8 @@ def plot_data(data, dates, file_name):
 
 	plt.savefig(file_name)
 
+	return file_name
+
 if __name__=="__main__":
 	data = [x for x in range(1000)]
 	date = time.strftime("%B %d %I:%M %p") # Month Day of the Month, Hour(12 hour clock), Minute, am or pm
