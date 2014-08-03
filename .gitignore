@@ -36,3 +36,9 @@ nosetests.xml
 .pydevproject
 
 twitter_tokens.py
+*.png
+*.txt
+
+*.png
+*.txt
+.DS_Store
