@@ -284,7 +284,13 @@ while True:
         clear_led()
         # 2. Pulse led high to color from previous temp reading
         print current_color
-        pulse_up()
+        # pulse_up()
+        for i in range(100):
+            color = colors[current_color]
+            r.ChangeDutyCycle(i * color[0])
+            g.ChangeDutyCycle(i * color[1])
+            b.ChangeDutyCycle(i * color[2])
+            time.sleep(0.02)
         # 3. Read temp
         current_temp = read_temp()
         # 4. Check and handle wifi
@@ -296,7 +302,13 @@ while True:
         # 7. See if a graph needs to be drawn, draw and tweet if necessary
         #TODO
         # 8. Pulse led low
-        pulse_down()
+        # pulse_down()
+        for i in range (100, 1, -1):
+            color = colors[current_color]
+            r.ChangeDutyCycle(i * color[0])
+            g.ChangeDutyCycle(i * color[1])
+            b.ChangeDutyCycle(i * color[2])
+            time.sleep(0.02)
         # 9. Repeat
 
         # r.ChangeDutyCycle(0)
