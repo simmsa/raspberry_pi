@@ -95,6 +95,7 @@ def set_led_to_current_temp(temp_constant):
 
 def handle_temp_reading(temp):
     working_temp = convert_temp_to_constant(temp)
+    print working_temp
     set_led_to_current_temp(working_temp)
     if temp_sequence_check(working_temp):
         if working_temp == REALLY_HOT:
