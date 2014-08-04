@@ -87,6 +87,7 @@ def set_led_to_current_temp(temp_constant):
     elif temp_constant == HOT:
         current_color = "yellow"
     elif temp_constant == NORMAL:
+        print "Color Change?"
         current_color = "green"
     elif temp_constant == COLD:
         current_color = "cyan"
@@ -287,6 +288,7 @@ while True:
         # pulse_up()
         for i in range(100):
             color = colors[current_color]
+            print color
             r.ChangeDutyCycle(i * color[0])
             g.ChangeDutyCycle(i * color[1])
             b.ChangeDutyCycle(i * color[2])
