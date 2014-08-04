@@ -89,6 +89,7 @@ def set_led_to_current_temp(temp_constant):
     elif temp_constant == NORMAL:
         print "Color Change?"
         current_color = "green"
+        print current_color
     elif temp_constant == COLD:
         current_color = "cyan"
     elif temp_constant == REALLY_COLD:
