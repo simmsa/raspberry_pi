@@ -87,14 +87,19 @@ def handle_temp_reading(temp):
     if temp_sequence_check(working_temp):
         if working_temp == REALLY_HOT:
             temp_change_tweet("Holy cow it's really hot in here! My leaves are starting to burn!")
+            current_color = "red"
         elif working_temp == HOT:
             temp_change_tweet("Man I'm starting to sweat in here!")
+            current_color = "yellow"
         elif working_temp == NORMAL:
             temp_change_tweet("Looks like everything is back to normal.")
+            current_color = "green"
         elif working_temp == COLD:
             temp_change_tweet("Brr.. it's getting colder in here!")
+            current_color = "cyan"
         elif working_temp == REALLY_COLD:
             temp_change_tweet("Come on turn up the heat, I'm freezin my ass off in here!")
+            current_color = "blue"
 
 # }}}
 # LED Setup and Control ---------------------------------------------- {{{
