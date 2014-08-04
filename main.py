@@ -17,7 +17,6 @@ io.setmode(io.BOARD)
 
 previous_temp = None
 current_color = "white"
-switch_status = True
 temp_sequence = []
 temp_status = "normal"
 last_tweet_check = time.time()
@@ -262,19 +261,17 @@ def clear_led():
 def pulse_up():
     for i in range(100):
         color = colors[current_color]
-        if switch_status:
-            r.ChangeDutyCycle(i * color[0])
-            g.ChangeDutyCycle(i * color[1])
-            b.ChangeDutyCycle(i * color[2])
+        r.ChangeDutyCycle(i * color[0])
+        g.ChangeDutyCycle(i * color[1])
+        b.ChangeDutyCycle(i * color[2])
         time.sleep(0.02)
 
 def pulse_down():
     for i in range (100, 1, -1):
         color = colors[current_color]
-        if switch_status:
-            r.ChangeDutyCycle(i * color[0])
-            g.ChangeDutyCycle(i * color[1])
-            b.ChangeDutyCycle(i * color[2])
+        r.ChangeDutyCycle(i * color[0])
+        g.ChangeDutyCycle(i * color[1])
+        b.ChangeDutyCycle(i * color[2])
         time.sleep(0.02)
 
 # }}}
@@ -285,6 +282,7 @@ while True:
         # 1. Clear led? is this necessary?
         clear_led()
         # 2. Pulse led high to color from previous temp reading
+        print current_color
         pulse_up()
         # 3. Read temp
         current_temp = read_temp()
@@ -293,7 +291,7 @@ while True:
         # 5. Handle temp reading, tweet if necessary
         handle_temp_reading(current_temp)
         # 6. Check tweets for temp request
-        check_tweets(current_temp)
+        # check_tweets(current_temp)
         # 7. See if a graph needs to be drawn, draw and tweet if necessary
         #TODO
         # 8. Pulse led low
