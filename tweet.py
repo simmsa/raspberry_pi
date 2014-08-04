@@ -33,15 +33,15 @@ def tweet(tweet):
         print "There is a problem connecting to twitter, could not check the temperature at this time? %s" % time.ctime()
         pass
 
-from twython import Twython
+# from twython import Twython
 
-twy = Twython(
-        twitter_tokens.api_key,
-        twitter_tokens.api_secret,
-        twitter_tokens.access_token,
-        twitter_tokens.access_token_secret
-    )
+# twy = Twython(
+#         twitter_tokens.api_key,
+#         twitter_tokens.api_secret,
+#         twitter_tokens.access_token,
+#         twitter_tokens.access_token_secret
+#     )
 
-photo = open("/Users/macuser/Desktop/Programming/python/data_analysis/temp.png", 'rb')
+# photo = open("/Users/macuser/Desktop/Programming/python/data_analysis/temp.png", 'rb')
 
-twy.update_status_with_media(media=photo, status="Testing temp graphs.")
+# twy.update_status_with_media(media=photo, status="Testing temp graphs.")
