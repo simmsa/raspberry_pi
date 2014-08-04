@@ -1,3 +1,5 @@
+# Libraries and GPIO Setup -------------------------------------------- {{{
+
 import os
 import glob
 import time
@@ -10,7 +12,8 @@ import tweet
 
 io.setmode(io.BOARD)
 
-################## TEMP SENSING
+# }}}
+# Temp Sensing -------------------------------------------------- {{{
 
 os.system("modprobe w1-gpio")
 os.system("modprobe w1-therm")
@@ -51,26 +54,8 @@ def continuous_read_temp(delay):
         except KeyboardInterrupt:
             pass
 
-######################## Switch On/Off
-
-switch_in = 12
-
-io.setup(switch_in, io.IN)
-
-def check_on_off(signal_in, sequence_length):
-    signal = io.input(signal_in)
-    sequence.append(signal)
-    if len(sequence) > sequence_length:
-        sequence.pop(0)
-
-    if 0 not in sequence:
-        return True
-    else:
-        return False
-
-
-########################## LED Setup and Pulse Functions
-
+# }}}
+# LED Setup and Control ---------------------------------------------- {{{
 
 RGB_RED = 16 # 23
 RGB_GREEN = 18 # 24
@@ -117,14 +102,15 @@ def rgb_pulse(rgb_led, color, speed, lower_limit):
                 b.ChangeDutyCycle(i * color[2])
                 time.sleep(speed)
 
-
     except KeyboardInterrupt:
         pass
 
     r.stop()
     g.stop()
     b.stop()
-########################## Tweeting Functions
+
+# }}}
+# Tweeting Functions -------------------------------------------------- {{{
 
 last_temp_tweet = [time.time()]
 
@@ -133,7 +119,8 @@ def temp_change_tweet(message):
         tweet.tweet(message)
         last_temp_tweet[0] = time.time()
 
-######################## Graphing Functions
+# }}}
+# Graphing Functions -------------------------------------------------- {{{
 
 def write_last_24_hour_graph_render():
     f = open("last_24_hour_graph_render.txt", "w")
@@ -153,7 +140,8 @@ def get_last_7_days_graph_render():
     f = open("last_7_days_graph_render.txt", "w")
     return float(f.read())
 
-######################## Main Loop
+# }}}
+# Main Loop -------------------------------------------------- {{{
 
 previous_temp = None
 
@@ -296,4 +284,4 @@ while True:
         g.stop()
         b.stop()
 
-
+# }}}
