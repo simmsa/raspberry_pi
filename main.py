@@ -287,11 +287,10 @@ while True:
         # 2. Pulse led high to color from previous temp reading
         print current_color
         # pulse_up()
+        print colors[current_color]
+        color = colors[current_color]
+        print color
         for i in range(100):
-            # print color
-            print colors[current_color]
-            color = colors[current_color]
-            print color
             r.ChangeDutyCycle(i * color[0])
             g.ChangeDutyCycle(i * color[1])
             b.ChangeDutyCycle(i * color[2])
@@ -308,8 +307,8 @@ while True:
         #TODO
         # 8. Pulse led low
         # pulse_down()
+        color = colors[current_color]
         for i in range (100, 1, -1):
-            color = colors[current_color]
             r.ChangeDutyCycle(i * color[0])
             g.ChangeDutyCycle(i * color[1])
             b.ChangeDutyCycle(i * color[2])
