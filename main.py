@@ -37,18 +37,22 @@ device_folder = glob.glob(base_dir + "28*")[0]
 device_file = device_folder + "/w1_slave"
 
 def read_temp():
-    f = open(device_file, "r")
-    lines = f.readlines()
-    f.close()
+    try:
+        f = open(device_file, "r")
+        lines = f.readlines()
+        f.close()
 
-    equals_pos = lines[1].find("t=")
+        equals_pos = lines[1].find("t=")
 
-    if equals_pos != 1:
-        temp_string = lines[1][equals_pos + 2:]
-        temp_c = float(temp_string) / 1000.0
-        temp_f = temp_c * 9.0 / 5.0 + 33
-        return temp_f
-    else:
+        if equals_pos != 1:
+            temp_string = lines[1][equals_pos + 2:]
+            temp_c = float(temp_string) / 1000.0
+            temp_f = temp_c * 9.0 / 5.0 + 33
+            return temp_f
+        else:
+            return False
+    except Exception as e:
+        print "Exception caught in read_temp: %s" % e
         return False
 
 # }}}
@@ -81,6 +85,7 @@ def temp_sequence_check(temp_constant):
     return result
 
 # }}}
+# set_led_to_current_temp -------------------------------------------- {{{
 
 def set_led_to_current_temp(temp_constant):
     global current_color
@@ -94,6 +99,9 @@ def set_led_to_current_temp(temp_constant):
         current_color = "cyan"
     elif temp_constant == REALLY_COLD:
         current_color = "blue"
+
+# }}}
+# handle_temp_reading ----------------------------------------------- {{{
 
 def handle_temp_reading(temp):
     working_temp = convert_temp_to_constant(temp)
@@ -109,6 +117,8 @@ def handle_temp_reading(temp):
             temp_change_tweet("Brr.. it's getting colder in here!")
         elif working_temp == REALLY_COLD:
             temp_change_tweet("Come on turn up the heat, I'm freezin my ass off in here!")
+
+# }}}
 
 # }}}
 # LED Setup and Control ---------------------------------------------- {{{
