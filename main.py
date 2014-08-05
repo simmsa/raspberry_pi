@@ -200,14 +200,16 @@ def temp_change_tweet(message):
         last_temp_tweet[0] = time.time()
 
 def check_tweets(current_temp):
-    try:
-        thread.start_new_thread(tweet.temp_request, (current_temp,))
-        print "The tweet check count is:", tweet_check_count
-        last_tweet_check = time.time()
-        tweet_check_count += 2
-    except:
-        print "There was a problem with threading!"
-        pass
+    if time.time() - last_tweet_check > 60:
+        try:
+            thread.start_new_thread(tweet.temp_request, (current_temp,))
+            print "The tweet check count is:", tweet_check_count
+            last_tweet_check = time.time()
+            tweet_check_count += 2
+        except Exception as e:
+            print e
+            print "There was a problem with threading!"
+            pass
 
 # }}}
 # Graphing Functions -------------------------------------------------- {{{
