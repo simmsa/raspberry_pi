@@ -174,7 +174,7 @@ def check_internet_connection():
     instance_connection_failures = 0
     if time.time() - last_tweet_check > 60:
         try:
-            urllib2.urlopen("http://www.twitter.com", timeout=1)
+            urllib2.urlopen("http://www.twitter.com", timeout=3)
         except urllib2.URLError as err:
             print err
             print "Unable to ping twitter! @ %s" % time.ctime()
@@ -195,9 +195,9 @@ def check_internet_connection():
 last_temp_tweet = [time.time()]
 
 def temp_change_tweet(message):
-    if time.time() - last_temp_tweet[0] > 300:
-        tweet.tweet(message)
-        last_temp_tweet[0] = time.time()
+    # if time.time() - last_temp_tweet[0] > 300:
+    tweet.tweet(message)
+        # last_temp_tweet[0] = time.time()
 
 def check_tweets(current_temp):
     global last_tweet_check
