@@ -82,14 +82,13 @@ def temp_sequence_check(temp_constant):
 # }}}
 
 def set_led_to_current_temp(temp_constant):
+    global current_color
     if temp_constant == REALLY_HOT:
         current_color = "red"
     elif temp_constant == HOT:
         current_color = "yellow"
     elif temp_constant == NORMAL:
-        print "Color Change?"
         current_color = "green"
-        print current_color
     elif temp_constant == COLD:
         current_color = "cyan"
     elif temp_constant == REALLY_COLD:
@@ -97,7 +96,6 @@ def set_led_to_current_temp(temp_constant):
 
 def handle_temp_reading(temp):
     working_temp = convert_temp_to_constant(temp)
-    print working_temp
     set_led_to_current_temp(working_temp)
     if temp_sequence_check(working_temp):
         if working_temp == REALLY_HOT:
