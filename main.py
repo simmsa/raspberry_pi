@@ -200,6 +200,7 @@ def check_internet_connection():
             print "Should be rebooting!"
             reboot()
     else:
+        print "Resetting connection_failures"
         connection_failures = 0
 
 # }}}
