@@ -22,15 +22,15 @@ def temp_request(current_temp):
             api.DestroyStatus(latest_status_id)
             print "Getting and tweeting temp!"
             api.PostUpdate("The current temperature is %d deg. (%s)" % (current_temp, time.ctime()))
-    except:
-        print "There is a problem with connecting to twitter, please check your internet connection. %s" % time.ctime()
+    except Exception as e:
+        print "There is a problem with connecting to twitter at %s, please check your internet connection. The exception is %s" % (time.ctime(), e)
         pass
 
 def tweet(tweet):
     try:
         api.PostUpdate("%s (%s)" % (tweet, time.ctime()))
-    except:
-        print "There is a problem connecting to twitter, could not check the temperature at this time? %s" % time.ctime()
+    except Exception as e:
+        print "There is a problem connecting to twitter, could not tweet '%s' at %s due to exception %s" % (tweet, time.ctime(), e)
         pass
 
 # from twython import Twython
