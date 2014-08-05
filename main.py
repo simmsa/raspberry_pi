@@ -175,7 +175,7 @@ def check_internet_connection():
     if time.time() - last_tweet_check > 60:
         try:
             # os.popen("ping -c 5 192.168.0.2")
-            urllib2.urlopen("http://192.186.0.2", timeout=1)
+            urllib2.urlopen("192.186.0.2", timeout=1)
         except urllib2.URLError as err:
             print err
             print "Unable to ping wifi!"
