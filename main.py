@@ -169,6 +169,7 @@ def rgb_pulse(rgb_led, color, speed, lower_limit):
 
 def check_internet_connection():
     global connection_failures
+    global last_tweet_check
     instance_connection_failures = 0
     if time.time() - last_tweet_check > 60:
         try:
@@ -184,6 +185,7 @@ def check_internet_connection():
             print "Unable to ping twitter! @ %s" % time.ctime()
             instance_connection_failures += 1
             pass
+        last_tweet_check = time.time()
 
     if instance_connection_failures > 0:
         connection_failures += 1
