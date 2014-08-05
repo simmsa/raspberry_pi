@@ -200,6 +200,7 @@ def temp_change_tweet(message):
         last_temp_tweet[0] = time.time()
 
 def check_tweets(current_temp):
+    global last_tweet_check
     if time.time() - last_tweet_check > 60:
         try:
             thread.start_new_thread(tweet.temp_request, (current_temp,))
