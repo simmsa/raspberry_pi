@@ -192,16 +192,16 @@ def check_internet_connection():
             pass
         last_tweet_check = time.time()
 
-    if instance_connection_failures > 0:
-        print "Adding connection failure to %d" % connection_failures
-        connection_failures += 1
-        print "Added connection failure, the value is now %d" % connection_failures
-        if connection_failures > 2:
-            print "Should be rebooting!"
-            reboot()
-    else:
-        print "Resetting connection_failures"
-        connection_failures = 0
+        if instance_connection_failures > 0:
+            print "Adding connection failure to %d" % connection_failures
+            connection_failures += 1
+            print "Added connection failure, the value is now %d" % connection_failures
+            if connection_failures > 2:
+                print "Should be rebooting!"
+                reboot()
+        else:
+            print "Resetting connection_failures"
+            connection_failures = 0
 
 # }}}
 # Tweeting Functions -------------------------------------------------- {{{
