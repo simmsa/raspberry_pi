@@ -1,10 +1,11 @@
 # Libraries and GPIO Setup -------------------------------------------- {{{
 
-import os
 import glob
-import time
+import os
 import sys
 import thread
+import time
+import urllib2
 
 import RPi.GPIO as io
 
@@ -173,15 +174,19 @@ def check_internet_connection():
     instance_connection_failures = 0
     if time.time() - last_tweet_check > 60:
         try:
-            os.popen("ping -c 5 192.168.0.2")
-        except:
+            # os.popen("ping -c 5 192.168.0.2")
+            urllib2.urlopen("http://192.186.0.2", timeout=1)
+        except urllib2.URLError as err:
+            print err
             print "Unable to ping wifi!"
             instance_connection_failures += 1
             pass
 
         try:
-            os.popen("ping -c 3 www.twitter.com")
-        except:
+            # os.popen("ping -c 3 www.twitter.com")
+            urllib2.urlopen("http://www.twitter.com", timeout=1)
+        except urllib2.URLError as err:
+            print err
             print "Unable to ping twitter! @ %s" % time.ctime()
             instance_connection_failures += 1
             pass
