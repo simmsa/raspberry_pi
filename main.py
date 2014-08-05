@@ -168,6 +168,7 @@ def rgb_pulse(rgb_led, color, speed, lower_limit):
 # WiFi Functions -------------------------------------------------- {{{
 
 def check_internet_connection():
+    global connection_failures
     instance_connection_failures = 0
     if time.time() - last_tweet_check > 60:
         try:
@@ -185,6 +186,7 @@ def check_internet_connection():
             pass
 
     if instance_connection_failures > 0:
+        connection_failures += 1
         if connection_failures > 2:
             reboot()
     else:
