@@ -290,7 +290,7 @@ while True:
         # 5. Handle temp reading, tweet if necessary
         handle_temp_reading(current_temp)
         # 6. Check tweets for temp request
-        # check_tweets(current_temp)
+        check_tweets(current_temp)
         # 7. See if a graph needs to be drawn, draw and tweet if necessary
         #TODO
         # 8. Pulse led low
