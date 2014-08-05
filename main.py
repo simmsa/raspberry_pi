@@ -173,17 +173,7 @@ def check_internet_connection():
     global last_tweet_check
     instance_connection_failures = 0
     if time.time() - last_tweet_check > 60:
-        # try:
-        #     # os.popen("ping -c 5 192.168.0.2")
-        #     urllib2.urlopen("192.186.0.2", timeout=1)
-        # except urllib2.URLError as err:
-        #     print err
-        #     print "Unable to ping wifi!"
-        #     instance_connection_failures += 1
-        #     pass
-
         try:
-            # os.popen("ping -c 3 www.twitter.com")
             urllib2.urlopen("http://www.twitter.com", timeout=1)
         except urllib2.URLError as err:
             print err
@@ -193,14 +183,10 @@ def check_internet_connection():
         last_tweet_check = time.time()
 
         if instance_connection_failures > 0:
-            print "Adding connection failure to %d" % connection_failures
             connection_failures += 1
-            print "Added connection failure, the value is now %d" % connection_failures
             if connection_failures > 2:
-                print "Should be rebooting!"
                 reboot()
         else:
-            print "Resetting connection_failures"
             connection_failures = 0
 
 # }}}
@@ -297,11 +283,6 @@ while True:
         clear_led()
         # 2. Pulse led high to color from previous temp reading
         pulse_up()
-        # for i in range(100):
-        #     r.ChangeDutyCycle(i * color[0])
-        #     g.ChangeDutyCycle(i * color[1])
-        #     b.ChangeDutyCycle(i * color[2])
-        #     time.sleep(0.02)
         # 3. Read temp
         current_temp = read_temp()
         # 4. Check and handle wifi
@@ -314,117 +295,9 @@ while True:
         #TODO
         # 8. Pulse led low
         pulse_down()
-        # color = colors[current_color]
-        # for i in range (100, 1, -1):
-        #     r.ChangeDutyCycle(i * color[0])
-        #     g.ChangeDutyCycle(i * color[1])
-        #     b.ChangeDutyCycle(i * color[2])
-        #     time.sleep(0.02)
         # 9. Repeat
 
-        # r.ChangeDutyCycle(0)
-        # g.ChangeDutyCycle(0)
-        # b.ChangeDutyCycle(0)
-
-        # temp_reading = read_temp()
-        # # Handle temp reading
-        # if temp_reading:
-        #     if temp_reading >= 90:
-        #         current_color = "red"
-        #         if temp_status != "really hot":
-        #             temp_change_tweet("Holy cow it's really hot in here! My leaves are starting to burn!")
-        #             temp_status = "really hot"
-        #     elif temp_reading >= 80:
-        #         current_color = "yellow"
-        #         if temp_status != "hot":
-        #             temp_change_tweet("Man I'm starting to sweat in here!")
-        #             temp_status = "hot"
-        #     elif temp_reading >= 50:
-        #         current_color = "green"
-        #         if temp_status != "normal":
-        #             temp_change_tweet("Looks like everything is back to normal.")
-        #             temp_status = "normal"
-        #     elif temp_reading >= 32:
-        #         current_color = "cyan"
-        #         if temp_status != "cold":
-        #             temp_change_tweet("Brr.. it's getting colder in here!")
-        #             temp_status = "cold"
-        #     else:
-        #         current_color = "blue"
-        #         if temp_status != "really cold":
-        #             temp_change_tweet("Come on turn up the heat, I'm freezin my ass off in here!")
-        #             temp_status = "really_cold"
-
-        #     previous_temp = temp_reading
-        # else:
-        #     print previous_temp
-
-        # # Check Wi-fi and Internet connection
-        # # Check if temp requested tweet if necessary
-
-
-        # # One Minute Time Check
-        # if time.time() - last_tweet_check > 60:
-
-        #     try:
-        #         os.popen("ping -c 5 192.168.0.2")
-        #     except:
-        #         print "Unable to ping wifi!"
-        #         pass
-
-        #                 try:
-        #         os.popen("ping -c 3 www.google.com")
-        #     except:
-        #         print "Unable to ping google! @ %s" % time.ctime()
-        #         pass
-
-        #     # try:
-        #     #     ifconfig = os.popen("ifconfig wlan0")
-        #     #     if "inet addr:" not in ifconfig.read():
-        #     #         print "Forcing connection to wifi, I hope this works @ %s" % time.ctime()
-        #     #         try:
-        #     #             force_wifi_shutdown = os.popen("ifdown --force wlan0")
-        #     #             print "Shutting down wifi connection @ %s" % time.ctime()
-        #     #             time.sleep(10)
-        #     #             print "Reconnecting wifi connection @ %s" % time.ctime()
-        #     #             force_wifi_reconnection = os.popen("ifup --force wlan0")
-        #     #             print "Wifi reconnection said: %s" % force_wifi_reconnection.read()
-        #     #         except Exception, e:
-        #     #             print "Unable to force wifi connection. @ %s" % time.ctime()
-        #     #             print "Wifi reconnection error: %s" % e
-        #     #             pass
-
-        #     # except:
-        #     #     print "There was a problem retrieving ifconfig for wlan0 @ %s" % time.ctime()
-        #     #     pass
-
-        #     try:
-        #         thread.start_new_thread(tweet.temp_request, (temp_reading,))
-        #         print "The tweet check count is:", tweet_check_count
-        #         last_tweet_check = time.time()
-        #         tweet_check_count += 2
-        #     except:
-        #         print "There was a problem with threading!"
-        #         pass
-
-
-        # for i in range(100):
-        #     color = colors[current_color]
-        #     if switch_status:
-        #         r.ChangeDutyCycle(i * color[0])
-        #         g.ChangeDutyCycle(i * color[1])
-        #         b.ChangeDutyCycle(i * color[2])
-        #     time.sleep(0.02)
-
-        # for i in range (100, 1, -1):
-        #     color = colors[current_color]
-        #     if switch_status:
-        #         r.ChangeDutyCycle(i * color[0])
-        #         g.ChangeDutyCycle(i * color[1])
-        #         b.ChangeDutyCycle(i * color[2])
-        #     time.sleep(0.02)
-
-        # # Forcing stdout to write
+        # Forces print to print right now
         sys.stdout.flush()
 
     except Exception, e:
