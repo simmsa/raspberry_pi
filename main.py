@@ -264,16 +264,16 @@ def clear_led():
     b.ChangeDutyCycle(0)
 
 def pulse_up():
+    color = colors[current_color]
     for i in range(100):
-        color = colors[current_color]
         r.ChangeDutyCycle(i * color[0])
         g.ChangeDutyCycle(i * color[1])
         b.ChangeDutyCycle(i * color[2])
         time.sleep(0.02)
 
 def pulse_down():
+    color = colors[current_color]
     for i in range (100, 1, -1):
-        color = colors[current_color]
         r.ChangeDutyCycle(i * color[0])
         g.ChangeDutyCycle(i * color[1])
         b.ChangeDutyCycle(i * color[2])
@@ -285,59 +285,32 @@ while True:
     try:
         # Sequence of events
         # 1. Clear led? is this necessary?
-        print  "Pre step 1:"
-        print current_color
         clear_led()
-        print  "Post step 1:"
-        print current_color
         # 2. Pulse led high to color from previous temp reading
-        print "Pre step 2:"
-        print current_color
-        # pulse_up()
-        # print colors[current_color]
-        color = colors[current_color]
-        # print color
-        for i in range(100):
-            r.ChangeDutyCycle(i * color[0])
-            g.ChangeDutyCycle(i * color[1])
-            b.ChangeDutyCycle(i * color[2])
-            time.sleep(0.02)
-        print  "Post step 2:"
-        print current_color
+        pulse_up()
+        # for i in range(100):
+        #     r.ChangeDutyCycle(i * color[0])
+        #     g.ChangeDutyCycle(i * color[1])
+        #     b.ChangeDutyCycle(i * color[2])
+        #     time.sleep(0.02)
         # 3. Read temp
-        print "Pre step 3:"
-        print current_color
         current_temp = read_temp()
-        print  "Post step 3:"
-        print current_color
         # 4. Check and handle wifi
-        print "Pre step 4:"
-        print current_color
         check_internet_connection()
-        print  "Post step 4:"
-        print current_color
         # 5. Handle temp reading, tweet if necessary
-        print "Pre step 5:"
-        print current_color
         handle_temp_reading(current_temp)
-        print  "Post step 5:"
-        print current_color
         # 6. Check tweets for temp request
         # check_tweets(current_temp)
         # 7. See if a graph needs to be drawn, draw and tweet if necessary
         #TODO
         # 8. Pulse led low
-        # pulse_down()
-        print "Pre step 8:"
-        print current_color
-        color = colors[current_color]
-        for i in range (100, 1, -1):
-            r.ChangeDutyCycle(i * color[0])
-            g.ChangeDutyCycle(i * color[1])
-            b.ChangeDutyCycle(i * color[2])
-            time.sleep(0.02)
-        print  "Post step 8:"
-        print current_color
+        pulse_down()
+        # color = colors[current_color]
+        # for i in range (100, 1, -1):
+        #     r.ChangeDutyCycle(i * color[0])
+        #     g.ChangeDutyCycle(i * color[1])
+        #     b.ChangeDutyCycle(i * color[2])
+        #     time.sleep(0.02)
         # 9. Repeat
 
         # r.ChangeDutyCycle(0)
