@@ -288,6 +288,8 @@ while True:
         print current_color
         # pulse_up()
         for i in range(100):
+            print color
+            print colors[current_color]
             color = colors[current_color]
             print color
             r.ChangeDutyCycle(i * color[0])
