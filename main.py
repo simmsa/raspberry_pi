@@ -2,6 +2,10 @@
 
 import glob
 import os
+try:
+    import cPickle as pickle
+except
+    import pickle
 import sys
 import thread
 import time
@@ -77,11 +81,28 @@ def convert_temp_to_constant(temp_float):
 
 def temp_sequence_check(temp_constant):
     result = False
+    previous_temp_file = "previous_temps.pkl"
+    try:
+        # get temp_sequence from file
+        # pickle.loads
+        previous_temp_data = open(previous_temp_file).read()
+        temp_sequence = pickle.loads(previous_temp_data)
+    except Exception as e:
+        print "Exception reading pickled tweet data"
+        print e
+        temp_sequence = []
+        pass
     if temp_constant not in temp_sequence:
         result = True
     if len(temp_sequence) > 5:
         temp_sequence.pop(0)
     temp_sequence.append(temp_constant)
+    # write temp sequence to file
+    # pickle.dumps(data)
+    f = open(previous_temp_file, "w")
+    f.write(pickle.dumps(temp_sequence))
+    f.close()
+
     return result
 
 # }}}
