@@ -4,7 +4,7 @@ import glob
 import os
 try:
     import cPickle as pickle
-except
+except:
     import pickle
 import sys
 import thread
