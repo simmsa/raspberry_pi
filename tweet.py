@@ -13,7 +13,6 @@ api = twitter.Api(
 
 # api.PostUpdate("This is the first tweet")
 def temp_request(current_temp):
-    print "Working temp request"
     try:
         latest_status = api.GetHomeTimeline(count=1)
         latest_status_text = latest_status[0].text.lower()

@@ -8,6 +8,7 @@ except:
     import pickle
 import sys
 import thread
+import threading
 import time
 import urllib2
 
@@ -234,7 +235,8 @@ def check_tweets(current_temp):
     global last_tweet_check
     if time.time() - last_tweet_check > 60:
         try:
-            thread.start_new_thread(tweet.temp_request, (current_temp,))
+            # thread.start_new_thread(tweet.temp_request, (current_temp,))
+            tweet.temp_request(current_temp)
             print "The tweet check count is:", tweet_check_count
             last_tweet_check = time.time()
             tweet_check_count += 2
@@ -242,6 +244,14 @@ def check_tweets(current_temp):
             print e
             print "There was a problem with threading!"
             pass
+
+class ThreadTweet(threading.Thread):
+    def __init__(self):
+        threading.Thread.__init__(self)
+
+    def run(self, current_temp):
+        check_tweets(current_temp)
+
 
 # }}}
 # Graphing Functions -------------------------------------------------- {{{
@@ -310,6 +320,8 @@ def pulse_down():
 
 # }}}
 
+thread_tweet = ThreadTweet()
+
 while True:
     try:
         # Sequence of events
@@ -324,7 +336,8 @@ while True:
         # 5. Handle temp reading, tweet if necessary
         handle_temp_reading(current_temp)
         # 6. Check tweets for temp request
-        check_tweets(current_temp)
+        # check_tweets(current_temp)
+        thread_tweet.start(current_temp)
         # 7. See if a graph needs to be drawn, draw and tweet if necessary
         #TODO
         # 8. Pulse led low
