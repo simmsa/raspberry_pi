@@ -246,11 +246,12 @@ def check_tweets(current_temp):
             pass
 
 class ThreadTweet(threading.Thread):
-    def __init__(self):
+    def __init__(self, current_temp):
         threading.Thread.__init__(self)
+        self.current_temp = current_temp
 
-    def run(self, current_temp):
-        check_tweets(current_temp)
+    def run(self):
+        check_tweets(self.current_temp)
 
 
 # }}}
@@ -320,8 +321,6 @@ def pulse_down():
 
 # }}}
 
-thread_tweet = ThreadTweet()
-
 while True:
     try:
         # Sequence of events
@@ -337,7 +336,8 @@ while True:
         handle_temp_reading(current_temp)
         # 6. Check tweets for temp request
         # check_tweets(current_temp)
-        thread_tweet.start(current_temp)
+        thread_tweet = ThreadTweet(current_temp)
+        thread_tweet.start()
         # 7. See if a graph needs to be drawn, draw and tweet if necessary
         #TODO
         # 8. Pulse led low
